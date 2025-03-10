@@ -1,4 +1,4 @@
-package com.tracker.userService;
+package com.tracker.UserService;
 
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
