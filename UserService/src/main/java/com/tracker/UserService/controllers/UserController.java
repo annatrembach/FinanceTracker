@@ -20,17 +20,6 @@ public class UserController {
     @Autowired
     private UserService userService;
 
-    @Autowired
-    private HttpServletRequest request;
-
-    @GetMapping("/profile")
-    public String getUserProfile(HttpServletRequest request) {
-        String email = request.getHeader("X-User-Email");
-        String role = request.getHeader("X-User-Role");
-
-        return "User Email: " + email + ", Role: " + role;
-    }
-
     @GetMapping("/")
     public ResponseEntity<List<User>> getUsers(@RequestHeader("Authorization") String jwt) {
         System.out.println("Received JWT: " + jwt);
