@@ -1,5 +1,6 @@
 package com.tracker.UserService.controllers;
 
+import jakarta.servlet.http.HttpServletRequest;
 import com.tracker.UserService.models.User;
 import com.tracker.UserService.services.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -19,17 +20,22 @@ public class UserController {
     @Autowired
     private UserService userService;
 
-    @GetMapping("/profile")
-    public ResponseEntity<User> getUserProfile(@RequestHeader("Authorization") String jwt) {
+    @Autowired
+    private HttpServletRequest request;
 
-        User user = userService.getUserProfile(jwt);
-        return new ResponseEntity<>(user, HttpStatus.OK);
+    @GetMapping("/profile")
+    public String getUserProfile(HttpServletRequest request) {
+        String email = request.getHeader("X-User-Email");
+        String role = request.getHeader("X-User-Role");
+
+        return "User Email: " + email + ", Role: " + role;
     }
 
     @GetMapping("/")
     public ResponseEntity<List<User>> getUsers(@RequestHeader("Authorization") String jwt) {
-
+        System.out.println("Received JWT: " + jwt);
         List<User> users = userService.getAllUsers();
+        System.out.println("Users: " + users);
         return new ResponseEntity<>(users, HttpStatus.OK);
     }
 }

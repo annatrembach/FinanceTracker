@@ -12,7 +12,7 @@
 	<groupId>com.tracker</groupId>
 	<artifactId>UserService</artifactId>
 	<version>0.0.1-SNAPSHOT</version>
-	<name>user-service</name>
+	<name>UserService</name>
 	<description>User service for finance tracker</description>
 	<url/>
 	<licenses>
