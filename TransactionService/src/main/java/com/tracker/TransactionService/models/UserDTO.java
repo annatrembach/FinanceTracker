@@ -1,25 +1,25 @@
-package com.tracker.UserService.models;
+package com.tracker.TransactionService.models;
 
-import jakarta.persistence.*;
+import jakarta.persistence.Column;
 
-@Entity
-@Table(name = "users")
-public class User {
+public class UserDTO {
 
-    @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
-
     private String name;
     private String email;
     private String password;
-
-    @Column(name = "createdAt")
     private String creationDate;
-
     private String role;
 
     //Getters and Setters
+
+
+    public Long getId() {
+        return id;
+    }
+    public void setId(Long id) {
+        this.id = id;
+    }
 
     public String getName() {
         return name;
@@ -55,5 +55,4 @@ public class User {
     public void setRole(String role) {
         this.role = role;
     }
-
 }

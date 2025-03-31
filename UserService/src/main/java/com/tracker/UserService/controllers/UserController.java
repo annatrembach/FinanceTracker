@@ -20,6 +20,13 @@ public class UserController {
     @Autowired
     private UserService userService;
 
+    @GetMapping("/profile")
+    public ResponseEntity<User> getUserProfile(@RequestHeader("Authorization") String jwt) {
+
+        User user = userService.getUserProfile(jwt);
+        return new ResponseEntity<>(user, HttpStatus.OK);
+    }
+
     @GetMapping("/")
     public ResponseEntity<List<User>> getUsers(@RequestHeader("Authorization") String jwt) {
         System.out.println("Received JWT: " + jwt);

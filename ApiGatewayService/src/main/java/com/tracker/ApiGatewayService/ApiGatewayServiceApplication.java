@@ -24,6 +24,9 @@ public class ApiGatewayServiceApplication {
 						.uri("http://localhost:8081"))
 				.route("AuthService", r -> r.path("/auth/**")
 						.uri("http://localhost:8081"))
+				.route("TransactionsService", r -> r.path("/api/transactions/**")
+						.filters(f -> f.filter(jwtAuthFilter.apply(new JwtAuthGatewayFilter.Config())))
+						.uri("http://localhost:8082"))
 				.build();
 	}
 }

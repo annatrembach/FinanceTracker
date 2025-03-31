@@ -3,6 +3,8 @@ package com.tracker.TransactionService.models;
 import com.tracker.TransactionService.models.enums.Type;
 import jakarta.persistence.*;
 
+import java.time.LocalDateTime;
+
 @Entity
 public class Transaction {
 
@@ -11,15 +13,25 @@ public class Transaction {
     private Long id;
 
     private Double amount;
+
+    @Enumerated(EnumType.STRING)
+    @Column(name = "type")
     private Type type;
-    private Category category;
+
     private String description;
 
-    @Column(name = "transaction_date")
+    @Column(name = "transactionDate")
     private String transactionDate;
 
-    @Column(name = "created_at")
-    private String creationDate;
+    @Column(name = "createdAt")
+    private LocalDateTime creationDate;
+
+    @Column(name = "userId")
+    private Long userId;
+
+    @ManyToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name = "categoryId")
+    private Category category;
 
     //Getters and Setters
 
@@ -65,10 +77,17 @@ public class Transaction {
         this.transactionDate = transactionDate;
     }
 
-    public String getCreationDate() {
+    public Long getUserId() {
+        return userId;
+    }
+    public void setUserId(Long userId) {
+        this.userId = userId;
+    }
+
+    public LocalDateTime getCreationDate() {
         return creationDate;
     }
-    public void setCreationDate(String creationDate) {
+    public void setCreationDate(LocalDateTime creationDate) {
         this.creationDate = creationDate;
     }
 }
