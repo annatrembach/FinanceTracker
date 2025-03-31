@@ -29,7 +29,7 @@ public class Transaction {
     @Column(name = "userId")
     private Long userId;
 
-    @ManyToOne(fetch = FetchType.LAZY)
+    @ManyToOne(fetch = FetchType.EAGER)
     @JoinColumn(name = "categoryId")
     private Category category;
 

@@ -8,6 +8,7 @@ import java.util.List;
 
 public interface TransactionService {
 
+    //crud
     Transaction createTransaction(Transaction transaction, String requestRole) throws Exception;
 
     Transaction getTransactionById(Long id) throws Exception;
@@ -19,5 +20,9 @@ public interface TransactionService {
     void deleteTransaction(Long id);
 
     Transaction assignToUser(Long userId, Long id) throws Exception;
+
+    //sort and filter
+    List<Transaction> getFilteredTransactions(String type, String category, String sortBy);
+
 
 }

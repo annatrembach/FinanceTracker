@@ -7,6 +7,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.time.LocalDateTime;
+import java.util.Comparator;
 import java.util.List;
 
 @Service
@@ -69,5 +70,40 @@ public class TransactionServiceImpl implements TransactionService{
         transaction.setUserId(userId);
         return transactionRepository.save(transaction);
     }
+
+    @Override
+    public List<Transaction> getFilteredTransactions(String type, String category, String sortBy) {
+        List<Transaction> transactions = transactionRepository.findAll();
+
+        if (type != null) {
+            transactions = transactions.stream()
+                    .filter(t -> t.getType().name().equalsIgnoreCase(type))
+                    .toList();
+        }
+
+        if (category != null) {
+            transactions = transactions.stream()
+                    .filter(t -> t.getCategory().getName().equalsIgnoreCase(category))
+                    .toList();
+        }
+
+        if (sortBy != null) {
+            switch (sortBy.toLowerCase()) {
+                case "amount":
+                    transactions = transactions.stream()
+                            .sorted(Comparator.comparing(Transaction::getAmount))
+                            .toList();
+                    break;
+                case "date":
+                    transactions = transactions.stream()
+                            .sorted(Comparator.comparing(Transaction::getTransactionDate))
+                            .toList();
+                    break;
+            }
+        }
+
+        return transactions;
+    }
+
 
 }

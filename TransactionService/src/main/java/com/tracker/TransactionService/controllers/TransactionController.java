@@ -76,4 +76,17 @@ public class TransactionController {
         return new ResponseEntity<>(HttpStatus.NO_CONTENT);
     }
 
+    //filter
+
+    @GetMapping("/filter")
+    public ResponseEntity<List<Transaction>> getFilteredTransactions(
+            @RequestParam(required = false) String type,
+            @RequestParam(required = false) String category,
+            @RequestParam(required = false) String sortBy) {
+
+        List<Transaction> transactions = transactionService.getFilteredTransactions(type, category, sortBy);
+        return new ResponseEntity<>(transactions, HttpStatus.OK);
+    }
+
+
 }
