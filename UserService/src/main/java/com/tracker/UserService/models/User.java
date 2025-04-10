@@ -2,6 +2,8 @@ package com.tracker.UserService.models;
 
 import jakarta.persistence.*;
 
+import java.time.LocalDateTime;
+
 @Entity
 @Table(name = "users")
 public class User {
@@ -15,7 +17,7 @@ public class User {
     private String password;
 
     @Column(name = "createdAt")
-    private String creationDate;
+    private LocalDateTime creationDate;
 
     private String role;
 
@@ -42,10 +44,10 @@ public class User {
         this.password = password;
     }
 
-    public String getCreationDate() {
+    public LocalDateTime getCreationDate() {
         return creationDate;
     }
-    public void setCreationDate(String creationDate) {
+    public void setCreationDate(LocalDateTime creationDate) {
         this.creationDate = creationDate;
     }
 

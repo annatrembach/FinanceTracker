@@ -6,7 +6,6 @@ import com.tracker.UserService.repository.UserRepository;
 import com.tracker.UserService.requests.LoginRequest;
 import com.tracker.UserService.responses.AuthResponse;
 import com.tracker.UserService.services.CustomerUserServiceImpl;
-import jdk.jshell.spi.ExecutionControl;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -21,6 +20,8 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
+import java.time.LocalDateTime;
+
 @RestController
 @RequestMapping("/auth")
 public class AuthController {
@@ -33,24 +34,23 @@ public class AuthController {
     private CustomerUserServiceImpl customerUserDetails;
 
     @PostMapping("/signup")
-    public ResponseEntity<AuthResponse> createUserHandler (
+    public ResponseEntity<AuthResponse> createUser(
             @RequestBody User user) throws Exception {
 
         String email = user.getEmail();
         String password = user.getPassword();
         String name = user.getName();
-        String createdAt = user.getCreationDate();
         String role = user.getRole();
 
         User isEmailExist = userRepository.findByEmail(email);
         if(isEmailExist != null){
-            throw new Exception("Email is already used with another account");
+            throw new Exception("Incorrect email or password");
         }
 
         User createdUser = new User();
         createdUser.setEmail(email);
         createdUser.setName(name);
-        createdUser.setCreationDate(createdAt);
+        createdUser.setCreationDate(LocalDateTime.now());
         createdUser.setRole(role);
         createdUser.setPassword(passwordEncoder.encode(password));
 
@@ -70,7 +70,7 @@ public class AuthController {
     }
 
     @PostMapping("/signin")
-    public ResponseEntity<AuthResponse> signin(@RequestBody LoginRequest loginRequest) {
+    public ResponseEntity<AuthResponse> signIn(@RequestBody LoginRequest loginRequest) {
 
         String username = loginRequest.getEmail();
         String password = loginRequest.getPassword();
