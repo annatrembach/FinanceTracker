@@ -1,7 +1,6 @@
 package com.tracker.TransactionService.services;
 
 import com.tracker.TransactionService.models.Transaction;
-import com.tracker.TransactionService.models.UserDTO;
 import com.tracker.TransactionService.repository.TransactionRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -62,6 +61,14 @@ public class TransactionServiceImpl implements TransactionService{
     @Override
     public void deleteTransaction(Long id) {
         transactionRepository.deleteById(id);
+    }
+
+    @Override
+    public List<Transaction> assignedUsersTransactions(Long userId) {
+
+        List<Transaction> allTransactions = transactionRepository.findByUserId(userId);
+
+        return allTransactions;
     }
 
     @Override

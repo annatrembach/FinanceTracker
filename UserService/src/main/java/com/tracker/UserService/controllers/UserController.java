@@ -1,15 +1,13 @@
 package com.tracker.UserService.controllers;
 
+import com.tracker.UserService.repository.UserRepository;
 import jakarta.servlet.http.HttpServletRequest;
 import com.tracker.UserService.models.User;
 import com.tracker.UserService.services.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.RequestHeader;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 
@@ -19,6 +17,9 @@ public class UserController {
 
     @Autowired
     private UserService userService;
+
+    @Autowired
+    private UserRepository userRepository;
 
     @GetMapping("/profile")
     public ResponseEntity<User> getUserProfile(@RequestHeader("Authorization") String jwt) {
@@ -34,4 +35,5 @@ public class UserController {
         System.out.println("Users: " + users);
         return new ResponseEntity<>(users, HttpStatus.OK);
     }
+
 }

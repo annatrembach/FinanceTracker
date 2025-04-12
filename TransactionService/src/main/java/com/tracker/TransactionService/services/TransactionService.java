@@ -21,8 +21,9 @@ public interface TransactionService {
 
     Transaction assignToUser(Long userId, Long id) throws Exception;
 
+    List<Transaction> assignedUsersTransactions(Long userId);
+
     //sort and filter
     List<Transaction> getFilteredTransactions(String type, String category, String sortBy);
-
 
 }

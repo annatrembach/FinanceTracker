@@ -7,7 +7,6 @@ import com.tracker.TransactionService.services.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
-import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
@@ -66,6 +65,15 @@ public class TransactionController {
         Transaction editedTransaction = transactionService.updateTransaction(id, transaction, user.getId());
 
         return new ResponseEntity<>(editedTransaction, HttpStatus.OK);
+    }
+
+    @GetMapping("/user/{userId}")
+    public ResponseEntity<List<Transaction>> getAssignedUsersGoals(
+            @PathVariable Long userId) throws Exception {
+
+        List<Transaction> transactions = transactionService.assignedUsersTransactions(userId);
+
+        return new ResponseEntity<>(transactions, HttpStatus.OK);
     }
 
     @DeleteMapping("/delete/{id}")

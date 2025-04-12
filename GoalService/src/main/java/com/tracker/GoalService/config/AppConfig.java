@@ -1,4 +1,4 @@
-package com.tracker.TransactionService.config;
+package com.tracker.GoalService.config;
 
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
@@ -15,7 +15,8 @@ import java.util.Collections;
 
 @Configuration
 public class AppConfig {
-    @Bean
+
+   @Bean
     SecurityFilterChain securityFilterChain(HttpSecurity http) throws Exception {
         http
                 .sessionManagement(management ->

@@ -8,6 +8,7 @@
         <outputRelativeToContentRoot value="true" />
         <module name="ApiGatewayService" />
         <module name="TransactionService" />
+        <module name="GoalService" />
         <module name="UserService" />
       </profile>
     </annotationProcessing>
@@ -15,6 +16,7 @@
   <component name="JavacSettings">
     <option name="ADDITIONAL_OPTIONS_OVERRIDE">
       <module name="ApiGatewayService" options="-parameters" />
+      <module name="GoalService" options="-parameters" />
       <module name="TransactionService" options="-parameters" />
       <module name="UserService" options="-parameters" />
     </option>
