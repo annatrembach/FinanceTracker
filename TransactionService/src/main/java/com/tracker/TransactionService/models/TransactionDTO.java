@@ -1,43 +1,24 @@
 package com.tracker.TransactionService.models;
 
-import com.tracker.TransactionService.models.enums.Type;
-import jakarta.persistence.*;
-
+import java.io.Serial;
 import java.io.Serializable;
 import java.time.LocalDateTime;
 
-@Entity
-public class Transaction  implements Serializable {
+public class TransactionDTO implements Serializable {
 
-    @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @Serial
+    private static final long serialVersionUID = 1L;
+
     private Long id;
-
     private Double amount;
-
-    @Enumerated(EnumType.STRING)
-    @Column(name = "type")
-    private Type type;
-
+    private String type;
     private String description;
-
-    @Column(name = "transactionDate")
     private String transactionDate;
-
-    @Column(name = "createdAt")
     private LocalDateTime creationDate;
-
-    @Column(name = "userId")
+    private Long goalId;
     private Long userId;
 
-    @Column(name = "goalId")
-    private Long goalId;
-
-    @ManyToOne(fetch = FetchType.EAGER)
-    @JoinColumn(name = "categoryId")
-    private Category category;
-
-    //Getters and Setters
+    // Getters and Setters
 
     public Long getId() {
         return id;
@@ -53,18 +34,11 @@ public class Transaction  implements Serializable {
         this.amount = amount;
     }
 
-    public Type getType() {
+    public String getType() {
         return type;
     }
-    public void setType(Type type) {
+    public void setType(String type) {
         this.type = type;
-    }
-
-    public Category getCategory() {
-        return category;
-    }
-    public void setCategory(Category category) {
-        this.category = category;
     }
 
     public String getDescription() {
@@ -81,18 +55,18 @@ public class Transaction  implements Serializable {
         this.transactionDate = transactionDate;
     }
 
-    public Long getUserId() {
-        return userId;
-    }
-    public void setUserId(Long userId) {
-        this.userId = userId;
-    }
-
     public LocalDateTime getCreationDate() {
         return creationDate;
     }
     public void setCreationDate(LocalDateTime creationDate) {
         this.creationDate = creationDate;
+    }
+
+    public Long getUserId() {
+        return userId;
+    }
+    public void setUserId(Long userId) {
+        this.userId = userId;
     }
 
     public Long getGoalId() {
@@ -101,4 +75,6 @@ public class Transaction  implements Serializable {
     public void setGoalId(Long goalId) {
         this.goalId = goalId;
     }
+
+
 }

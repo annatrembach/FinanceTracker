@@ -3,10 +3,11 @@ package com.tracker.GoalService.models;
 import com.tracker.GoalService.models.enums.Status;
 import jakarta.persistence.*;
 
+import java.io.Serializable;
 import java.time.LocalDateTime;
 
 @Entity
-public class Goal {
+public class Goal  implements Serializable {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;

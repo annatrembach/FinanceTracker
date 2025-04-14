@@ -1,15 +1,21 @@
 package com.tracker.TransactionService.controllers;
 
+import com.tracker.TransactionService.mapper.TransactionMapper;
 import com.tracker.TransactionService.models.Transaction;
+import com.tracker.TransactionService.models.TransactionDTO;
 import com.tracker.TransactionService.models.UserDTO;
+import com.tracker.TransactionService.publisher.TransactionProducer;
 import com.tracker.TransactionService.services.TransactionService;
 import com.tracker.TransactionService.services.UserService;
+import org.springframework.amqp.rabbit.core.RabbitTemplate;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
+import java.util.Set;
+import java.util.stream.Collectors;
 
 @RestController
 @RequestMapping("/api/transactions")
@@ -17,6 +23,9 @@ public class TransactionController {
 
     @Autowired
     private TransactionService transactionService;
+
+    @Autowired
+    private TransactionProducer transactionProducer;
 
     @Autowired
     private UserService userService;
@@ -27,6 +36,8 @@ public class TransactionController {
         UserDTO user = userService.getUserProfile(jwt);
 
         Transaction createdTransaction = transactionService.createTransaction(transaction, user.getRole());
+
+        transactionProducer.sendTransactionUpdate(createdTransaction);
 
         return new ResponseEntity<>(createdTransaction, HttpStatus.CREATED);
     }
@@ -95,6 +106,13 @@ public class TransactionController {
         List<Transaction> transactions = transactionService.getFilteredTransactions(type, category, sortBy);
         return new ResponseEntity<>(transactions, HttpStatus.OK);
     }
+
+//    private Set<TransactionDTO> getTransactionDTOs(List<Transaction> transactions) {
+//        return transactions.stream()
+//                .map(transaction->{
+//                    return TransactionMapper.convertToDTO(transaction);
+//                }).collect(Collectors.toSet());
+//    }
 
 
 }
