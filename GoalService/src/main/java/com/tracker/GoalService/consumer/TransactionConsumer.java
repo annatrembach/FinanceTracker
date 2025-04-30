@@ -51,7 +51,7 @@ public class TransactionConsumer {
                 }
             }
         } catch (Exception e) {
-            e.printStackTrace();  // log the exception
+            e.printStackTrace();
         }
     }
 

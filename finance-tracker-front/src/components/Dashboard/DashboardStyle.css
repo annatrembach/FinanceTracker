@@ -1,0 +1,104 @@
+.dashboard-container {
+    position: relative;
+    align-items: center;
+    padding: 20px;
+    background-color: #ffffff;
+    transition: transform 0.5s ease;
+    height: 100%;
+    width: 100%; 
+    display: flex;
+    justify-content: center;
+  }
+  
+  .summary {
+    display: flex;
+    justify-content: space-between;
+    width: 100%;
+    margin-bottom: 40px;
+  }
+  
+  .cards {
+    width: 60% !important;
+    display: flex !important;
+    flex-wrap: nowrap !important;
+  }
+
+  .card {
+    background: white;
+    padding: 5px 30px 5px 30px;;
+    border-radius: 10px !important;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1)  !important;
+    text-align: center;
+    flex: 1;
+    margin: 0 10px;
+  }
+  
+  .card h3 {
+    font-size: 1.2rem;
+    margin-bottom: 10px;
+  }
+  
+  .card p {
+    font-size: 2rem;
+    font-weight: bold;
+  }
+  
+  .charts {
+    width: 70% !important;
+  }
+  
+  .chart-round {
+    background: white;
+    padding: 20px;
+    border-radius: 10px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    display:  grid;
+    text-align: center;
+    justify-content: center;
+    height: 333px;
+    width: 333px;
+  }
+
+  .chart-round h3 {
+    margin: 0px 0px 5px 0px; 
+    font-size: 1.2rem;
+    vertical-align: middle;
+  }
+
+  .canvas {
+    width: 230px !important;
+    height: 230px !important;
+  }
+
+  .chart-line {
+    background: white;
+    padding: 20px;
+    border-radius: 10px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    text-align: center;
+    width:100%;
+  }
+
+  .chart-line h3 {
+    margin-bottom: 20px;
+    font-size: 1.2rem;
+  }
+ 
+  .css-17fpwt7-MuiGrid-root{
+    width: 50%;
+    padding: 10px;
+  }
+
+  .css-d64g0g-MuiGrid-root {
+    display: flex;
+    align-content: center;
+    justify-content: center;
+  }
+
+  .dashboard-container.shifted {
+    transform: translateX(150px);
+    transition: margin 0.5s ease;
+  }
+
+
+  

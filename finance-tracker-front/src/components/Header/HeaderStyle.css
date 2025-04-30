@@ -1,0 +1,50 @@
+.nav-wrapper {
+    padding: 10px 20px; 
+    font-size: 1.5rem;
+    font-weight: bold;
+    color: #ffffff;
+    display:contents;
+    align-items: center;
+}
+
+.sidenav-trigger {
+    font-size: 32px;
+    color: white;
+    cursor: pointer;
+    margin-left: 10px;
+    display: flex;
+    align-items: center;
+  }
+  
+  .show-burger {
+    display: inline-block !important;
+  }
+  
+  .sidenav {
+    padding-top:  64px; 
+    z-index: -1 !important;
+  }
+
+  .sidenav-overlay {
+    opacity: 0 !important;
+    z-index: -1;
+  }
+
+.material-icons {
+    font-size: 30px !important;
+}
+
+.brand-logo {
+    margin: 0px 5px 0px 5px !important;
+}
+
+.hide-on-med-and-down{
+    margin: 0px 15px !important;
+}
+
+.navbar-fixed {
+    top: 0;
+    width: 100%;
+    z-index: 1000;
+}
+  

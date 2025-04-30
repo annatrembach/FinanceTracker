@@ -10,5 +10,4 @@ public interface GoalRepository extends JpaRepository<Goal, Long>{
 
     public List<Goal> findByUserId(Long userId);
 
-    Optional<Goal> findTopByUserIdOrderByCreationDateDesc(Long userId);
 }
