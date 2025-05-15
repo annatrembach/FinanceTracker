@@ -10,6 +10,13 @@
     justify-content: center;
   }
   
+.h3-dashboard {
+  font-size: 1.4rem !important;
+  margin: 20px 10px 20px 10px;
+  color: black !important;
+  font-weight: 600;
+
+}
   .summary {
     display: flex;
     justify-content: space-between;
@@ -31,11 +38,6 @@
     text-align: center;
     flex: 1;
     margin: 0 10px;
-  }
-  
-  .card h3 {
-    font-size: 1.2rem;
-    margin-bottom: 10px;
   }
   
   .card p {

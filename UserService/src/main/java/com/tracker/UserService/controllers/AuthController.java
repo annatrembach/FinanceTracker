@@ -15,15 +15,13 @@ import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.crypto.password.PasswordEncoder;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 import java.time.LocalDateTime;
 
 @RestController
 @RequestMapping("/auth")
+@CrossOrigin(origins = "http://localhost:3000/", allowCredentials = "true")
 public class AuthController {
 
     @Autowired
@@ -40,7 +38,6 @@ public class AuthController {
         String email = user.getEmail();
         String password = user.getPassword();
         String name = user.getName();
-        String role = user.getRole();
 
         User isEmailExist = userRepository.findByEmail(email);
         if(isEmailExist != null){
@@ -51,7 +48,7 @@ public class AuthController {
         createdUser.setEmail(email);
         createdUser.setName(name);
         createdUser.setCreationDate(LocalDateTime.now());
-        createdUser.setRole(role);
+        createdUser.setRole("USER");
         createdUser.setPassword(passwordEncoder.encode(password));
 
         User savedUser = userRepository.save(createdUser);

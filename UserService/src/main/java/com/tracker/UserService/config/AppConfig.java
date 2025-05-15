@@ -39,6 +39,10 @@ public class AppConfig {
             cfg.setAllowCredentials(true);
             cfg.setAllowedHeaders(Collections.singletonList("*"));
             cfg.setExposedHeaders(Arrays.asList("Authorization"));
+            cfg.setAllowedOrigins(Arrays.asList("http://localhost:3000"));
+            cfg.setAllowedMethods(Arrays.asList("GET", "POST", "PUT", "DELETE", "OPTIONS"));
+            cfg.setAllowedHeaders(Arrays.asList("Authorization", "Content-Type", "X-Requested-With"));
+
             cfg.setMaxAge(3600L);
             return cfg;
         };

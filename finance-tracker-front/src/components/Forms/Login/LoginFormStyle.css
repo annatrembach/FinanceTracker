@@ -1,21 +1,19 @@
-
-
-.form-wrapper{
+.form-wrapper {
     text-align: center;
     display: grid !important;
     justify-content: center;
     align-items: center;
     align-content: center;
     justify-items: center;
-    min-height: 100vh; /* займає всю висоту вікна */
-    background-color: #f19ca2; /* необов’язково: приємний фон */
+    min-height: 100vh;
+    background-color: #f19ca2;
 }
 
 .row {
     width: 500px;
     background: white;
     padding: 5px;
-    padding-bottom: 15px ;
+    padding-bottom: 15px;
     border-radius: 20px;
     display: grid;
     align-items: center;
@@ -28,7 +26,7 @@
     width: 300px !important;
 }
 
-.h3-registration {
+.h3-login {
     text-align: center;
     font-weight: 500;
     color: white;
@@ -48,11 +46,11 @@
     margin-bottom: 10px !important;
     transition: background-color 0.5s ease;
     border-radius: 10px !important;
-  }
-  
+}
+
 * button:hover {
     background-color: #e14456 !important;
-  }
+}
 
 * label {
     color: #f05761 !important;

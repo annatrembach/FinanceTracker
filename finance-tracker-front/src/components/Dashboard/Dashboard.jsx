@@ -48,21 +48,21 @@ const Dashboard = ({ isSidebarOpen }) => {
         <Grid className="cards" container item style={{ width: '100%' }} justifyContent="center" alignItems="center">
           <Grid item xs={4}>
             <div className="card">
-              <h3>Total Balance</h3>
+              <h3 className='h3-dashboard'>Total Balance</h3>
               <p>${balance}</p>
             </div>
           </Grid>
     
           <Grid item xs={4}>
             <div className="card">
-              <h3>Income</h3>
+              <h3 className='h3-dashboard'>Income</h3>
               <p>${income}</p>
             </div>
           </Grid>
     
           <Grid item xs={4}>
             <div className="card">
-              <h3>Expenses</h3>
+              <h3 className='h3-dashboard'>Expenses</h3>
               <p>${expenses}</p>
             </div>
           </Grid>
@@ -71,14 +71,14 @@ const Dashboard = ({ isSidebarOpen }) => {
         <Grid className="charts" container item style={{ width: '100%' }} justifyContent="center" alignItems="center"> 
           <Grid item xs={4}>
             <div className="chart-round">
-              <h3>Expenses by Category</h3>
+              <h3 className='h3-dashboard'>Expenses by Category</h3>
               <Pie className='canvas' data={expenseCategories} />
             </div>
           </Grid>
     
           <Grid item xs={8}>
             <div className="chart-line">
-              <h3>Income vs Expenses</h3>
+              <h3 className='h3-dashboard'>Income vs Expenses</h3>
               <Line data={incomeVsExpensesData} />
             </div>
           </Grid>

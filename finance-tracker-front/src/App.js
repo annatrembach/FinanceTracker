@@ -3,6 +3,7 @@ import { BrowserRouter as  Router, Route, Routes, Link } from 'react-router-dom'
 import Dashboard from './components/Dashboard/Dashboard.jsx';
 import Header from './components/Header/Header.jsx';
 import RegistrationForm from './components/Forms/Registration/RegistrationForm.jsx'
+import LoginForm from './components/Forms/Login/LoginForm.jsx'
 
 function App() {
   const [isSidebarOpen, setIsSidebarOpen] = useState(false);
@@ -17,14 +18,17 @@ function App() {
           {/* сторінка реєстрації */}
           <Route path="/register" element={<RegistrationForm />} />
 
+          {/* сторінка реєстрації */}
+          <Route path="/login" element={<LoginForm />} />
+
           {/* сторінка з дашбордом */}
           <Route path="/dashboard" element={
-            <>
+            <div>
               <Header setIsSidebarOpen={setIsSidebarOpen} />
               <div>
                 <Dashboard isSidebarOpen={isSidebarOpen} />
               </div>
-            </>
+            </div>
           } />
         </Routes>
       </div>
