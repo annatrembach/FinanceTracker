@@ -1,6 +1,6 @@
 package com.tracker.TransactionService.services;
 
-import com.tracker.TransactionService.models.UserDTO;
+import com.tracker.TransactionService.models.DTO.UserDTO;
 import org.springframework.cloud.openfeign.FeignClient;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestHeader;

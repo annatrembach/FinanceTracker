@@ -2,12 +2,13 @@ import { createAsyncThunk, createSlice } from "@reduxjs/toolkit";
 import axios from "axios";
 import { api, setAuthHeader } from "../api/api";
 
-const BASE_URL = "http://localhost:8081"; 
+const BASE_URL = "http://localhost:8081";
 
 export const login = createAsyncThunk("auth/login", async (userData) => {
   try {
     const { data } = await axios.post(`${BASE_URL}/auth/signin`, userData);
     localStorage.setItem("jwt", data.jwt);
+    localStorage.setItem("user", JSON.stringify(data.user));
     console.log("login success", data);
     return data;
   } catch (error) {
@@ -20,6 +21,7 @@ export const register = createAsyncThunk("auth/register", async (userData) => {
   try {
     const { data } = await axios.post(`${BASE_URL}/auth/signup`, userData);
     localStorage.setItem("jwt", data.jwt);
+    localStorage.setItem("user", JSON.stringify(data.user));
     console.log("register success", data);
     return data;
   } catch (error) {
@@ -57,7 +59,7 @@ export const getUserList = createAsyncThunk("auth/getUserList", async (jwt) => {
   setAuthHeader(jwt, api);
   try {
     const { data } = await api.get(`/api/users`);
-    console.log("user list success ", data);
+    console.log("user list success", data);
     return data;
   } catch (error) {
     console.log("catch error", error);
@@ -75,7 +77,13 @@ const authSlice = createSlice({
     jwt: null,
     users: [],
   },
-  reducers: {},
+  reducers: {
+    restoreUser(state, action) {
+      state.jwt = action.payload.jwt;
+      state.user = action.payload.user;
+      state.loggedIn = true;
+    }
+  },
   extraReducers: (builder) => {
     builder
       .addCase(login.pending, (state) => {
@@ -86,6 +94,8 @@ const authSlice = createSlice({
         state.loading = false;
         state.jwt = action.payload.jwt;
         state.loggedIn = true;
+        state.user = action.payload.user;
+        localStorage.setItem("user", JSON.stringify(action.payload.user));
       })
       .addCase(login.rejected, (state, action) => {
         state.loading = false;
@@ -100,6 +110,8 @@ const authSlice = createSlice({
         state.loading = false;
         state.jwt = action.payload.jwt;
         state.loggedIn = true;
+        state.user = action.payload.user;
+        localStorage.setItem("user", JSON.stringify(action.payload.user));
       })
       .addCase(register.rejected, (state, action) => {
         state.loading = false;
@@ -144,4 +156,5 @@ const authSlice = createSlice({
   },
 });
 
+export const { restoreUser } = authSlice.actions;
 export default authSlice.reducer;

@@ -33,12 +33,13 @@ public class AppConfig {
     public CorsConfigurationSource corsConfigurationSource() {
         return request -> {
             CorsConfiguration cfg = new CorsConfiguration();
-            cfg.setAllowedOrigins(Collections.singletonList("*"));
-            cfg.setAllowedMethods(Collections.singletonList("*"));
             cfg.setAllowCredentials(true);
-            cfg.setAllowedHeaders(Collections.singletonList("*"));
             cfg.setExposedHeaders(Arrays.asList("Authorization"));
             cfg.setMaxAge(3600L);
+            cfg.setAllowedOrigins(Arrays.asList("http://localhost:3000"));
+            cfg.setAllowedMethods(Arrays.asList("GET", "POST", "PUT", "DELETE", "OPTIONS"));
+            cfg.setAllowedHeaders(Arrays.asList("Authorization", "Content-Type", "X-Requested-With"));
+
             return cfg;
         };
     }

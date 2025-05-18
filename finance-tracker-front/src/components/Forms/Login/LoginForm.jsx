@@ -2,13 +2,15 @@ import React, { useState } from 'react';
 import 'materialize-css/dist/css/materialize.min.css';
 import './LoginFormStyle.css';
 import { useDispatch } from 'react-redux';
-import { login } from '../../../store/AuthSlice';
+import { login, getUserProfile } from '../../../store/AuthSlice';
+import { useNavigate } from 'react-router-dom';
 
 const LoginForm = () => {
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
   const [errorMessage, setErrorMessage] = useState('');
   const dispatch = useDispatch();
+  const navigate = useNavigate();
 
   const handleSubmit = async (e) => {
     e.preventDefault();
@@ -16,13 +18,12 @@ const LoginForm = () => {
 
     try {
       await dispatch(login({ email, password })).unwrap();
+      const userProfile = await dispatch(getUserProfile()).unwrap();
+      localStorage.setItem('user', JSON.stringify(userProfile));
+      navigate('/dashboard');
     } catch (error) {
       console.error('Login failed:', error);
-      if (error?.status === 401 || error?.message?.includes('Incorrect email or password')) {
-        setErrorMessage('Incorrect email or password.');
-      } else {
-        setErrorMessage('Login failed. Please try again.');
-      }
+      setErrorMessage('Incorrect email or password.');
     }
   };
 
@@ -59,7 +60,7 @@ const LoginForm = () => {
           </div>
 
           {errorMessage && (
-            <p style={{ color: 'red', margin: '0 0', fontFamily: '-apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Oxygen-Sans, Ubuntu, Cantarell, "Helvetica Neue", sans-serif', fontSize: '15px' }}>{errorMessage}</p>
+            <p style={{ color: 'red', fontSize: '15px' }}>{errorMessage}</p>
           )}
 
           <button type="submit" className="btn waves-effect waves-light">Login</button>

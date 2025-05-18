@@ -15,6 +15,7 @@ import java.util.Objects;
 
 @RestController
 @RequestMapping("/api/goals")
+@CrossOrigin(origins = "http://localhost:3000/", allowCredentials = "true")
 public class GoalController {
 
     @Autowired

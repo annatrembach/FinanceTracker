@@ -1,6 +1,4 @@
-package com.tracker.TransactionService.models;
-
-import jakarta.persistence.Column;
+package com.tracker.TransactionService.models.DTO;
 
 public class UserDTO {
 

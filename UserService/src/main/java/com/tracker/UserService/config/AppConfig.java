@@ -34,10 +34,7 @@ public class AppConfig {
     public CorsConfigurationSource corsConfigurationSource() {
         return request -> {
             CorsConfiguration cfg = new CorsConfiguration();
-            cfg.setAllowedOrigins(Collections.singletonList("*"));
-            cfg.setAllowedMethods(Collections.singletonList("*"));
             cfg.setAllowCredentials(true);
-            cfg.setAllowedHeaders(Collections.singletonList("*"));
             cfg.setExposedHeaders(Arrays.asList("Authorization"));
             cfg.setAllowedOrigins(Arrays.asList("http://localhost:3000"));
             cfg.setAllowedMethods(Arrays.asList("GET", "POST", "PUT", "DELETE", "OPTIONS"));

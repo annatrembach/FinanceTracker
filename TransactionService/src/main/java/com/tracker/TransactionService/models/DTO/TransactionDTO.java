@@ -1,4 +1,4 @@
-package com.tracker.TransactionService.models;
+package com.tracker.TransactionService.models.DTO;
 
 import java.io.Serial;
 import java.io.Serializable;

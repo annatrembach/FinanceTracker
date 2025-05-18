@@ -18,6 +18,8 @@ import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.web.bind.annotation.*;
 
 import java.time.LocalDateTime;
+import java.util.HashMap;
+import java.util.Map;
 
 @RestController
 @RequestMapping("/auth")
@@ -65,26 +67,29 @@ public class AuthController {
 
         return new ResponseEntity<AuthResponse>(authResponse, HttpStatus.OK);
     }
-
     @PostMapping("/signin")
-    public ResponseEntity<AuthResponse> signIn(@RequestBody LoginRequest loginRequest) {
-
+    public ResponseEntity<?> signIn(@RequestBody LoginRequest loginRequest) {
         String username = loginRequest.getEmail();
         String password = loginRequest.getPassword();
-
-        System.out.println(username + " ----------- " + password);
 
         Authentication authentication = authenticate(username, password);
         SecurityContextHolder.getContext().setAuthentication(authentication);
 
         String token = JwtProvider.generateToken(authentication);
-        AuthResponse authResponse = new AuthResponse();
-        authResponse.setMessage("Login success");
-        authResponse. setJwt(token);
-        authResponse.setStatus(true);
 
-        return new ResponseEntity<AuthResponse>(authResponse, HttpStatus.OK);
+        User user = userRepository.findByEmail(username);
+
+        Map<String, Object> response = new HashMap<>();
+        response.put("jwt", token);
+        response.put("user", Map.of(
+                "id", user.getId(),
+                "name", user.getName(),
+                "email", user.getEmail()
+        ));
+
+        return new ResponseEntity<>(response, HttpStatus.OK);
     }
+
 
     private Authentication authenticate(String username, String password) {
         UserDetails userDetails = customerUserDetails.loadUserByUsername(username);

@@ -1,7 +1,9 @@
 package com.tracker.TransactionService.controllers;
 
+import com.tracker.TransactionService.models.DTO.MonthSummaryDTO;
 import com.tracker.TransactionService.models.Transaction;
-import com.tracker.TransactionService.models.UserDTO;
+import com.tracker.TransactionService.models.DTO.UserBalanceDTO;
+import com.tracker.TransactionService.models.DTO.UserDTO;
 import com.tracker.TransactionService.publisher.TransactionProducer;
 import com.tracker.TransactionService.services.TransactionService;
 import com.tracker.TransactionService.services.UserService;
@@ -14,6 +16,7 @@ import java.util.List;
 
 @RestController
 @RequestMapping("/api/transactions")
+@CrossOrigin(origins = "http://localhost:3000/", allowCredentials = "true")
 public class TransactionController {
 
     @Autowired
@@ -101,5 +104,20 @@ public class TransactionController {
         List<Transaction> transactions = transactionService.getFilteredTransactions(type, category, sortBy);
         return new ResponseEntity<>(transactions, HttpStatus.OK);
     }
+
+    @GetMapping(value = "/balance/{userId}")
+    public ResponseEntity<UserBalanceDTO> getSummary(@PathVariable Long userId) {
+        System.out.println("Request for userId: " + userId);
+        UserBalanceDTO balance = transactionService.getBalance(userId);
+        System.out.println("Balance: " + balance.getBalance() + ", Income: " + balance.getIncome() + ", Expenses: " + balance.getExpenses());
+        return new ResponseEntity<>(balance, HttpStatus.OK);
+    }
+
+    @GetMapping("/monthly-summary/{userId}")
+    public ResponseEntity<List<MonthSummaryDTO>> getMonthlySummary(@PathVariable Long userId) {
+        List<MonthSummaryDTO> summary = transactionService.getMonthlyIncomeAndExpenses(userId);
+        return ResponseEntity.ok(summary);
+    }
+
 
 }

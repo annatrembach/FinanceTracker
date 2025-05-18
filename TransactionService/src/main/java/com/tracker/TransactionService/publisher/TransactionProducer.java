@@ -1,7 +1,7 @@
 package com.tracker.TransactionService.publisher;
 
 import com.tracker.TransactionService.models.Transaction;
-import com.tracker.TransactionService.models.TransactionDTO;
+import com.tracker.TransactionService.models.DTO.TransactionDTO;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.amqp.rabbit.core.RabbitTemplate;

@@ -1,35 +1,49 @@
-import React, { useState } from 'react';
-import { BrowserRouter as  Router, Route, Routes, Link } from 'react-router-dom'; 
+import React, { useEffect, useState } from 'react';
+import { BrowserRouter as Router, Route, Routes } from 'react-router-dom';
+import { useDispatch } from 'react-redux';
+import { restoreUser } from './store/AuthSlice';
+
 import Dashboard from './components/Dashboard/Dashboard.jsx';
 import Header from './components/Header/Header.jsx';
-import RegistrationForm from './components/Forms/Registration/RegistrationForm.jsx'
-import LoginForm from './components/Forms/Login/LoginForm.jsx'
+import RegistrationForm from './components/Forms/Registration/RegistrationForm.jsx';
+import LoginForm from './components/Forms/Login/LoginForm.jsx';
+import UserProfile from './pages/UserProfile.jsx';
 
 function App() {
   const [isSidebarOpen, setIsSidebarOpen] = useState(false);
+  const dispatch = useDispatch();
+
+  useEffect(() => {
+    const jwt = localStorage.getItem('jwt');
+    const userStr = localStorage.getItem('user');
+
+    if (jwt && userStr) {
+      try {
+        const user = JSON.parse(userStr);
+        dispatch(restoreUser({ jwt, user }));
+      } catch (e) {
+        console.error('Invalid user in localStorage:', e);
+      }
+    }
+  }, [dispatch]);
 
   return (
     <Router>
       <div className="App">
         <Routes>
-          {/* головна сторінка */}
           <Route path="/" element={<h1>Welcome to the Main Page!</h1>} />
-
-          {/* сторінка реєстрації */}
           <Route path="/register" element={<RegistrationForm />} />
-
-          {/* сторінка реєстрації */}
           <Route path="/login" element={<LoginForm />} />
-
-          {/* сторінка з дашбордом */}
-          <Route path="/dashboard" element={
-            <div>
-              <Header setIsSidebarOpen={setIsSidebarOpen} />
-              <div>
+          <Route
+            path="/dashboard"
+            element={
+              <>
+                <Header setIsSidebarOpen={setIsSidebarOpen} />
                 <Dashboard isSidebarOpen={isSidebarOpen} />
-              </div>
-            </div>
-          } />
+              </>
+            }
+          />
+          <Route path="/profile" element={<UserProfile />} />
         </Routes>
       </div>
     </Router>

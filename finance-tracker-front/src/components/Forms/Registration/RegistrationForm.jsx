@@ -3,14 +3,16 @@ import 'materialize-css/dist/css/materialize.min.css';
 import './RegistrationFormStyle.css';
 import { useDispatch } from 'react-redux';
 import { register } from '../../../store/AuthSlice';
+import { useNavigate } from 'react-router-dom';
 
 const RegisterForm = () => {
-  const [username, setUsername] = useState('');
+  const [name, setName] = useState('');
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
   const [confirmPassword, setConfirmPassword] = useState('');
   const [errorMessage, setErrorMessage] = useState('');
   const dispatch = useDispatch();
+  const navigate = useNavigate();
 
   const handleSubmit = async (e) => {
     e.preventDefault();
@@ -22,7 +24,8 @@ const RegisterForm = () => {
     }
 
     try {
-      await dispatch(register({ username, email, password })).unwrap();
+      await dispatch(register({ name, email, password })).unwrap();
+      navigate('/dashboard'); 
     } catch (error) {
       console.error('Registration failed:', error);
       if (error?.status === 409) {
@@ -43,14 +46,14 @@ const RegisterForm = () => {
           <div className="row">
             <div className="input-field">
               <input
-                id="username"
+                id="name"
                 type="text"
                 className="validate"
-                value={username}
-                onChange={(e) => setUsername(e.target.value)}
+                value={name}
+                onChange={(e) => setName(e.target.value)}
                 required
               />
-              <label htmlFor="username">Name</label>
+              <label htmlFor="name">Name</label>
             </div>
           </div>
           <div className="row">
@@ -92,8 +95,8 @@ const RegisterForm = () => {
               <label htmlFor="confirmPassword">Confirm Password</label>
             </div>
             {errorMessage && (
-            <p style={{ color: 'red', margin: '0 0', fontFamily: '-apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Oxygen-Sans, Ubuntu, Cantarell, "Helvetica Neue", sans-serif', fontSize: '15px' }}>{errorMessage}</p>
-          )}
+              <p style={{ color: 'red', margin: '0 0', fontSize: '15px' }}>{errorMessage}</p>
+            )}
           </div>
           <button type="submit" className="btn waves-effect waves-light">Register</button>
         </form>

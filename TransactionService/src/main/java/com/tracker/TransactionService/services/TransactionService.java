@@ -1,8 +1,8 @@
 package com.tracker.TransactionService.services;
 
+import com.tracker.TransactionService.models.DTO.MonthSummaryDTO;
 import com.tracker.TransactionService.models.Transaction;
-import com.tracker.TransactionService.models.UserDTO;
-import org.springframework.stereotype.Service;
+import com.tracker.TransactionService.models.DTO.UserBalanceDTO;
 
 import java.util.List;
 
@@ -26,4 +26,8 @@ public interface TransactionService {
     //sort and filter
     List<Transaction> getFilteredTransactions(String type, String category, String sortBy);
 
+    //dashboard
+    UserBalanceDTO getBalance(Long userId);
+
+    List<MonthSummaryDTO> getMonthlyIncomeAndExpenses(Long userId);
 }

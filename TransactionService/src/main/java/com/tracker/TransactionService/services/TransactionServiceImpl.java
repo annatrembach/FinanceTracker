@@ -1,13 +1,22 @@
 package com.tracker.TransactionService.services;
 
+import com.tracker.TransactionService.models.DTO.MonthSummaryDTO;
 import com.tracker.TransactionService.models.Transaction;
+import com.tracker.TransactionService.models.DTO.UserBalanceDTO;
+import com.tracker.TransactionService.models.enums.Type;
 import com.tracker.TransactionService.repository.TransactionRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.time.LocalDate;
 import java.time.LocalDateTime;
+import java.time.YearMonth;
+import java.time.format.DateTimeFormatter;
+import java.time.format.DateTimeParseException;
 import java.util.Comparator;
 import java.util.List;
+import java.util.Map;
+import java.util.stream.Collectors;
 
 @Service
 public class TransactionServiceImpl implements TransactionService{
@@ -112,5 +121,68 @@ public class TransactionServiceImpl implements TransactionService{
         return transactions;
     }
 
+    @Override
+    public UserBalanceDTO getBalance(Long userId) {
+        List<Transaction> transactions = assignedUsersTransactions(userId);
+
+        double income = transactions.stream()
+                .filter(t -> t.getType() == Type.INCOME)
+                .mapToDouble(Transaction::getAmount)
+                .sum();
+
+        double expenses = transactions.stream()
+                .filter(t -> t.getType() == Type.EXPENSE)
+                .mapToDouble(Transaction::getAmount)
+                .sum();
+
+        double balance = income - expenses;
+
+        return new UserBalanceDTO(balance, income, expenses);
+    }
+
+    @Override
+    public List<MonthSummaryDTO> getMonthlyIncomeAndExpenses(Long userId) {
+        List<Transaction> userTransactions = assignedUsersTransactions(userId);
+
+        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd.MM.yyyy");
+
+        Map<YearMonth, List<Transaction>> groupedByMonth = userTransactions.stream()
+                .filter(t -> isValidDate(t.getTransactionDate(), formatter)) // Перевірка, чи дата валідна
+                .collect(Collectors.groupingBy(t -> {
+                    LocalDate date = LocalDate.parse(t.getTransactionDate(), formatter);
+                    return YearMonth.from(date);
+                }));
+
+        List<MonthSummaryDTO> summaryList = groupedByMonth.entrySet().stream()
+                .map(entry -> {
+                    YearMonth month = entry.getKey();
+                    List<Transaction> transactions = entry.getValue();
+
+                    double income = transactions.stream()
+                            .filter(t -> t.getType() == Type.INCOME)
+                            .mapToDouble(Transaction::getAmount)
+                            .sum();
+
+                    double expense = transactions.stream()
+                            .filter(t -> t.getType() == Type.EXPENSE)
+                            .mapToDouble(Transaction::getAmount)
+                            .sum();
+
+                    return new MonthSummaryDTO(month.toString(), income, expense);
+                })
+                .sorted(Comparator.comparing(MonthSummaryDTO::getMonth))
+                .collect(Collectors.toList());
+
+        return summaryList;
+    }
+
+    private boolean isValidDate(String dateStr, DateTimeFormatter formatter) {
+        try {
+            LocalDate.parse(dateStr, formatter);
+            return true;
+        } catch (DateTimeParseException e) {
+            return false;
+        }
+    }
 
 }
