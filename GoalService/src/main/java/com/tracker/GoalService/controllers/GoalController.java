@@ -58,14 +58,19 @@ public class GoalController {
     }
 
     @GetMapping("/user/{userId}")
-    public ResponseEntity<List<Goal>> getAssignedUsersGoals(
+    public ResponseEntity<?> getAssignedUsersGoals(
             @RequestParam(required = false) Status goalStatus,
             @PathVariable Long userId) throws Exception {
 
-        List<Goal>goals = goalService.assignedUsersGoals(userId, goalStatus);
+        List<Goal> goals = goalService.assignedUsersGoals(userId, goalStatus);
+
+        if (goals == null || goals.isEmpty()) {
+            return new ResponseEntity<>("You don't have any goals yet.", HttpStatus.OK);
+        }
 
         return new ResponseEntity<>(goals, HttpStatus.OK);
     }
+
 
     @DeleteMapping("/delete/{id}")
     public ResponseEntity<Void> deleteGoal(

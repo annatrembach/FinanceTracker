@@ -5,6 +5,8 @@ import { Grid } from '@mui/material';
 import './DashboardStyle.css';
 import { useSelector } from 'react-redux';
 import axios from 'axios';
+import dayjs from 'dayjs';
+
 
 ChartJS.register(ArcElement, CategoryScale, LinearScale, PointElement, LineElement, Title, Tooltip, Legend);
 
@@ -82,8 +84,7 @@ const Dashboard = ({ isSidebarOpen }) => {
     fetchExpenses();
   }, [jwt, user]);
 
-  // Новий useEffect для динамічного line chart з даних filter
-  useEffect(() => {
+useEffect(() => {
   const fetchMonthlySummary = async () => {
     if (!user || !user.id) return;
 
@@ -97,25 +98,15 @@ const Dashboard = ({ isSidebarOpen }) => {
 
       const summaryData = response.data;
 
-      // Місяці у форматі "Jan", "Feb", ..., "Dec"
-      const monthOrder = ["Jan", "Feb", "Mar", "Apr", "May", "Jun", "Jul", "Aug", "Sep", "Oct", "Nov", "Dec"];
-
-      // Map DTO -> { month, income, expense }
-      const monthMap = {};
-      summaryData.forEach(item => {
-        const month = item.month;
-        monthMap[month] = item;
-      });
-
-      const allMonths = Object.keys(monthMap).sort(
-        (a, b) => monthOrder.indexOf(a) - monthOrder.indexOf(b)
+      const labels = summaryData.map(item =>
+        dayjs(item.month + "-01").format("MM.YYYY")
       );
 
-      const incomeData = allMonths.map(month => monthMap[month]?.income || 0);
-      const expenseData = allMonths.map(month => monthMap[month]?.expense || 0);
+      const incomeData = summaryData.map(item => item.income);
+      const expenseData = summaryData.map(item => item.expense);
 
       setIncomeVsExpensesData({
-        labels: allMonths,
+        labels,
         datasets: [
           {
             label: 'Income',
@@ -133,7 +124,6 @@ const Dashboard = ({ isSidebarOpen }) => {
           },
         ],
       });
-
     } catch (error) {
       console.error("Error fetching monthly summary", error);
     }

@@ -98,7 +98,7 @@ const RegisterForm = () => {
               <p style={{ color: 'red', margin: '0 0', fontSize: '15px' }}>{errorMessage}</p>
             )}
           </div>
-          <button type="submit" className="btn waves-effect waves-light">Register</button>
+          <button type="submit" className="register-button">Ok</button>
         </form>
       </div>
     </div>

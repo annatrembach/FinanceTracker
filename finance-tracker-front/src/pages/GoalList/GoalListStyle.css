@@ -1,0 +1,172 @@
+.goals-container {
+  position: relative;
+  max-width: 1000px;
+  margin: 0 auto;
+  font-family: Arial, sans-serif;
+  color: #333;
+  align-items: center;
+  padding: 10px;
+  background-color: #ffffff;
+  transition: transform 0.5s ease, max-width 0.5s ease;
+}
+
+.goals-container.shifted {
+  max-width: 800px;
+  transform: translateX(150px);
+}
+
+.filter-buttons {
+  margin-bottom: 1rem;
+  display: flex;
+  justify-content: space-between;
+}
+
+.filter-buttons button {
+  background: none;
+  border: 1px solid #f05761;
+  color: #f05761;
+  padding: 0.5rem 1rem;
+  margin-right: 0.5rem;
+  cursor: pointer;
+  border-radius: 4px;
+  font-weight: 600;
+  transition: background-color 0.3s;
+}
+
+.filter-buttons button.active,
+.filter-buttons button:hover {
+  background-color: #f05761;
+  color: white;
+}
+
+.new-goal-form {
+  display: flex;
+  gap: 0.5rem;
+  margin-bottom: 1rem;
+}
+
+.new-goal-form input {
+  flex: 1;
+  padding: 0.5rem;
+  border: 1px solid #f05761;
+  border-radius: 4px;
+  font-size: 1rem;
+}
+
+.new-goal-form button {
+  background-color: #f05761;
+  border: none;
+  color: white;
+  padding: 0 1rem;
+  cursor: pointer;
+  border-radius: 4px;
+  font-weight: 600;
+  transition: background-color 0.3s;
+}
+
+.new-goal-form button:disabled {
+  background-color: #fbb3b3;
+  cursor: not-allowed;
+}
+
+.goals-table {
+  width: 100%;
+  border-collapse: collapse;
+  table-layout: fixed;
+}
+
+.goals-table th {
+  height: 50px !important;
+}
+
+.goals-table th,
+.goals-table td {
+  padding: 0.75rem 1rem;
+  border: 1px solid #f05761;
+  text-align: left;
+  overflow: hidden;
+  white-space: nowrap;
+  text-overflow: ellipsis;
+  height: 71px;
+  max-width: 100%;
+}
+
+.goals-table th:nth-child(1),
+.goals-table td:nth-child(1) { width: 20%; }
+.goals-table th:nth-child(2),
+.goals-table td:nth-child(2) { width: 15%; }
+.goals-table th:nth-child(3),
+.goals-table td:nth-child(3) { width: 15%; }
+.goals-table th:nth-child(4),
+.goals-table td:nth-child(4) { width: 13%; }
+.goals-table th:nth-child(5),
+.goals-table td:nth-child(5) { width: 20%; }
+.goals-table th:nth-child(6),
+.goals-table td:nth-child(6) { width: 20%; }
+
+.goals-table th:nth-child(6),
+.goals-table td:nth-child(6) {
+  display: table-cell;
+}
+
+.goals-container.shifted .goals-table th:nth-child(6),
+.goals-container.shifted .goals-table td:nth-child(6) {
+  display: none;
+}
+
+.goals-table td:last-child {
+  border-top: transparent !important;
+  border-left: transparent !important;
+  padding: 0.75rem 1rem;
+  border: 1px solid #f05761;
+  text-align: center;
+  vertical-align: middle;
+  width: 20%;
+}
+
+.goals-table tr.completed {
+  background-color: #ffe3e3;
+  color: #a94442;
+  text-decoration: line-through;
+}
+
+.goals-table tr.editing td {
+  background-color: #fff0f0;
+  vertical-align: middle;
+  height: 44px;
+  white-space: normal;
+  overflow-wrap: break-word;
+}
+
+.goals-table input,
+.goals-table select {
+  width: 100%;
+  max-width: 100%;
+  box-sizing: border-box;
+  font-size: 1rem;
+  font-family: inherit;
+  border: 1px solid #f05761;
+  border-radius: 4px;
+  padding: 0.5rem;
+  height: 32px;
+  overflow: hidden;
+}
+
+.goals-table button {
+  background: none;
+  border: 1px solid #f05761;
+  color: #f05761;
+  border-radius: 4px;
+  cursor: pointer;
+  font-size: 0.9rem;
+  transition: background-color 0.3s;
+  width: initial;
+  display: inline-block;
+  padding: 7px;
+  margin: 5px;
+}
+
+.goals-table button:hover {
+  background-color: #f05761;
+  color: white;
+}

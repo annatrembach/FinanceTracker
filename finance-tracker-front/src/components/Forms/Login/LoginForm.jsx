@@ -29,7 +29,7 @@ const LoginForm = () => {
 
   return (
     <div className='form-wrapper'>
-      <h3 className='h3-login'>Log In</h3>
+      <h3 className='h3-login'>Sign In</h3>
       <div className="row">
         <form className="col s12" onSubmit={handleSubmit}>
           <div className="row">
@@ -63,7 +63,7 @@ const LoginForm = () => {
             <p style={{ color: 'red', fontSize: '15px' }}>{errorMessage}</p>
           )}
 
-          <button type="submit" className="btn waves-effect waves-light">Login</button>
+          <button type="submit" className="login-button">Ok</button>
         </form>
       </div>
     </div>

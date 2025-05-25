@@ -144,7 +144,7 @@ public class TransactionServiceImpl implements TransactionService{
     public List<MonthSummaryDTO> getMonthlyIncomeAndExpenses(Long userId) {
         List<Transaction> userTransactions = assignedUsersTransactions(userId);
 
-        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd.MM.yyyy");
+        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd");
 
         Map<YearMonth, List<Transaction>> groupedByMonth = userTransactions.stream()
                 .filter(t -> isValidDate(t.getTransactionDate(), formatter)) // Перевірка, чи дата валідна
@@ -175,6 +175,7 @@ public class TransactionServiceImpl implements TransactionService{
 
         return summaryList;
     }
+
 
     private boolean isValidDate(String dateStr, DateTimeFormatter formatter) {
         try {

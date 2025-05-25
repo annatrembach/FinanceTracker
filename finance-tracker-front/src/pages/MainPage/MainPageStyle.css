@@ -1,0 +1,88 @@
+.mainpage-bg {
+  background: linear-gradient(135deg, #f19ca2, #f05761);
+  height: 100vh;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.h3-main-page {
+    color: #d94b56;
+    font-family: Arial, Helvetica, sans-serif;
+    font-size: 30px;
+    font-weight: bold;
+}
+
+.mainpage-card {
+  background-color: white;
+  padding: 40px 60px;
+  border-radius: 20px;
+  box-shadow: 0 8px 20px rgba(240, 87, 97, 0.25);
+  text-align: center;
+  width: 90%;
+  max-width: 800px;
+}
+
+.summary {
+  display: flex;
+  justify-content: space-between;
+  margin: 30px 0;
+  flex-wrap: wrap;
+}
+
+.card {
+  background: white;
+  padding: 15px 25px;
+  border-radius: 10px;
+  box-shadow: 0 4px 8px rgba(241, 156, 162, 0.3);
+  text-align: center;
+  flex: 1;
+  margin: 10px;
+  min-width: 120px;
+}
+
+.card p {
+  font-size: 1.8rem;
+  color: #f05761; 
+  margin: 0;
+}
+
+.card span {
+  font-size: 0.95rem;
+  color: #333;
+}
+
+.mainpage-buttons {
+  margin-top: 25px;
+  display: flex;
+  gap: 20px;
+  justify-content: center;
+  flex-wrap: wrap;
+}
+
+.main-btn {
+  background-color: #f05761;
+  color: white;
+  padding: 12px 30px;
+  border: none;
+  border-radius: 10px;
+  font-size: 16px;
+  cursor: pointer;
+  transition: 0.3s;
+  min-width: 120px;
+}
+
+.main-btn:hover {
+  background-color: #f05761;
+  color: white !important;
+}
+
+.main-btn.outline {
+  background-color: white;
+  color: #f05761;
+  border: 2px solid #f05761;
+}
+
+.main-btn.outline:hover {
+  background-color: #fce9ea;
+}
