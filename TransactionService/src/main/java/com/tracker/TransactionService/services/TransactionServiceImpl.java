@@ -147,7 +147,7 @@ public class TransactionServiceImpl implements TransactionService{
         DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd");
 
         Map<YearMonth, List<Transaction>> groupedByMonth = userTransactions.stream()
-                .filter(t -> isValidDate(t.getTransactionDate(), formatter)) // Перевірка, чи дата валідна
+                .filter(t -> isValidDate(t.getTransactionDate(), formatter))
                 .collect(Collectors.groupingBy(t -> {
                     LocalDate date = LocalDate.parse(t.getTransactionDate(), formatter);
                     return YearMonth.from(date);
